@@ -15,6 +15,7 @@
 
 #define UART0   0
 #define UART1   1
+#define TRACE_TO_UART0
 
 // UartDev is defined and initialized in rom code.
 extern UartDevice UartDev;
@@ -94,6 +95,7 @@ uart1_tx_one_char(uint8 TxChar)
 LOCAL void ICACHE_FLASH_ATTR
 uart1_write_char(char c)
 {
+#ifdef TRACE_TO_UART0
     if (c == '\n') {
         uart_tx_one_char('\r');
         uart_tx_one_char('\n');
@@ -101,6 +103,15 @@ uart1_write_char(char c)
     } else {
         uart_tx_one_char(c);
     }
+#else
+    if (c == '\n') {
+        uart1_tx_one_char('\r');
+        uart1_tx_one_char('\n');
+    } else if (c == '\r') {
+    } else {
+        uart1_tx_one_char(c);
+    }
+#endif
 }
 
 /******************************************************************************
