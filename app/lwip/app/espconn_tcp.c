@@ -539,7 +539,7 @@ espconn_sclose_cb(void *arg)
     }
 
     struct tcp_pcb *pcb = psclose_cb ->pcommon.pcb;
-    espconn_printf("espconn_sclose_cb %d %d\n", pcb->state, pcb->nrtx);
+    //espconn_printf("espconn_sclose_cb %d %d\n", pcb->state, pcb->nrtx);
     if (pcb->state == CLOSED || pcb->state == TIME_WAIT) {
     	psclose_cb ->pespconn ->state = ESPCONN_CLOSE;
 		/*remove the node from the server's active connection list*/
@@ -682,7 +682,7 @@ espconn_server_poll(void *arg, struct tcp_pcb *pcb)
         return ERR_OK;
     }
 
-    espconn_printf("espconn_server_poll %d %d\n", pspoll_cb ->recv_check, pcb->state);
+    espconn_printf("espconn_server_poll %d %d\n", pspoll_cb->pcommon.recv_check, pcb->state);
     pspoll_cb->pcommon.pcb = pcb;
     if (pcb->state == ESTABLISHED) {
 		pspoll_cb->pcommon.recv_check++;

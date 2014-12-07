@@ -4,8 +4,8 @@
 #include "lwip/dns.h"
 #include "os_type.h"
 
-#if 0
-#define espconn_printf(fmt, args...) os_printf(fmt,## args)
+#if 1
+#define espconn_printf os_printf
 #else 
 #define espconn_printf(fmt, args...)
 #endif
