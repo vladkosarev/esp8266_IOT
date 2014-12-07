@@ -56,14 +56,7 @@ extern volatile uint32_t PIN_2;
 void user_init(void)
 {
   uart_init(BIT_RATE_115200, BIT_RATE_115200);
-  const char str[] = "\r\nready\r\n";
-  uart0_tx_buffer(str, 9);
-  //uart0_sendStr("\r\nready2\r\n");
-
   os_printf("SDK version:%d.%d.%d\r\n", SDK_VERSION_MAJOR, SDK_VERSION_MINOR, SDK_VERSION_REVISION);
-  char temp[128];
-  os_sprintf(temp, "SDK version:%d.%d.%d\r\n", SDK_VERSION_MAJOR, SDK_VERSION_MINOR, SDK_VERSION_REVISION);
-  uart0_tx_buffer(temp, 128);
 
 #if ESP_PLATFORM
     user_esp_platform_init();
