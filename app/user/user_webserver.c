@@ -871,10 +871,11 @@ data_send(void *arg, bool responseOK, char *psend)
 
     if (responseOK) {
         os_sprintf(httphead,
-                   "HTTP/1.0 200 OK\r\nContent-Length: %d\r\nServer: lwIP/1.4.0\r\nAccess-Control-Allow-Origin: *\r\n",
+                   "HTTP/1.0 200 OK\r\nContent-Length: %d\r\nServer: lwIP/1.4.0\r\nAccess-Control-Allow-Origin: *\r\nAccess-Control-Allow-Methods: *\r\nAccess-Control-Allow-Headers: accept, content-type\r\n\r\n",
                    psend ? os_strlen(psend) : 0);
-
+os_printf("PSEND= %s\r\n", psend);
         if (psend) {
+os_printf("in PSEND\r\n");
             os_sprintf(httphead + os_strlen(httphead),
                        "Content-type: application/json\r\nExpires: Fri, 10 Apr 2008 14:00:00 GMT\r\nPragma: no-cache\r\n\r\n");
             length = os_strlen(httphead) + os_strlen(psend);
@@ -882,6 +883,7 @@ data_send(void *arg, bool responseOK, char *psend)
             os_memcpy(pbuf, httphead, os_strlen(httphead));
             os_memcpy(pbuf + os_strlen(httphead), psend, os_strlen(psend));
         } else {
+os_printf("in NOT PSEND\r\n");
             os_sprintf(httphead + os_strlen(httphead), "\n");
             length = os_strlen(httphead);
         }
@@ -890,7 +892,7 @@ data_send(void *arg, bool responseOK, char *psend)
 Content-Length: 0\r\nServer: lwIP/1.4.0\r\n\n");
         length = os_strlen(httphead);
     }
-
+os_printf("Sending %d bytes\r\n", length);
     if (psend) {
 #ifdef SERVER_SSL_ENABLE
         espconn_secure_sent(ptrespconn, pbuf, length);
@@ -1339,6 +1341,7 @@ webserver_recv(void *arg, char *pusrdata, unsigned short length)
                 break;
 	case OPTIONS:
                 os_printf("We have OPTIONS request.\n");
+                response_send(ptrespconn, true);
 		break;
         }
 
