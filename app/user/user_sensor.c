@@ -216,7 +216,7 @@ user_sensor_init(uint8 active)
     user_mvh3004_read_th(humiture_data);
 #endif
 
-#ifdef SENSOR_DEEP_SLEEP
+#if defined (SENSOR_DEEP_SLEEP) && ! defined (DEEP_SLEEP_OVERRIDE)
     if (wifi_get_opmode() != STATIONAP_MODE) {
         if (active == 1) {
             user_sensor_deep_sleep_init(SENSOR_DEEP_SLEEP_TIME / 1000 );

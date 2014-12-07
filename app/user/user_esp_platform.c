@@ -463,7 +463,7 @@ user_esp_platform_discon_cb(void *arg)
 #endif
 
 #if SENSOR_DEVICE
-#ifdef SENSOR_DEEP_SLEEP
+#if defined (SENSOR_DEEP_SLEEP) && ! defined (DEEP_SLEEP_OVERRIDE)
 
     if (wifi_get_opmode() == STATION_MODE) {
         user_sensor_deep_sleep_enter();
@@ -476,7 +476,7 @@ user_esp_platform_discon_cb(void *arg)
 #else
     os_timer_disarm(&client_timer);
     os_timer_setfn(&client_timer, (os_timer_func_t *)user_esp_platform_reconnect, pespconn);
-    os_timer_arm(&client_timer, 1000, 0);
+    os_timer_arm(&client_timer, 30000, 0);
 #endif
 #else
     user_esp_platform_reconnect(pespconn);
@@ -1025,7 +1025,7 @@ user_esp_platform_recon_cb(void *arg, sint8 err)
     }
 
 #if SENSOR_DEVICE
-#ifdef SENSOR_DEEP_SLEEP
+#if defined (SENSOR_DEEP_SLEEP) && ! defined (DEEP_SLEEP_OVERRIDE)
 
     if (wifi_get_opmode() == STATION_MODE) {
         user_esp_platform_reset_mode();

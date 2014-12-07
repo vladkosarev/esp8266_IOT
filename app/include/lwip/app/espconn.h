@@ -4,7 +4,7 @@
 #include "lwip/dns.h"
 #include "os_type.h"
 
-#define TRACE_ESPCONN
+//#define TRACE_ESPCONN
 #ifdef TRACE_ESPCONN
 #define espconn_printf os_printf
 #else 
