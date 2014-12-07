@@ -14,6 +14,7 @@ typedef enum Result_Resp {
 typedef enum ProtocolType {
     GET = 0,
     POST,
+    OPTIONS
 } ProtocolType;
 
 typedef enum _ParmType {

@@ -689,7 +689,10 @@ parse_url(char *precv, URL_Frame *purl_frame)
             pbuffer += 4;
         } else if (os_strncmp(pbuffer, "POST ", 5) == 0) {
             purl_frame->Type = POST;
-            pbuffer += 5;
+            pbuffer += 5;        
+        } else if (os_strncmp(pbuffer, "OPTIONS ", 8) == 0) {
+            purl_frame->Type = OPTIONS;
+            pbuffer += 8;
         }
 
         pbuffer ++;
@@ -868,7 +871,7 @@ data_send(void *arg, bool responseOK, char *psend)
 
     if (responseOK) {
         os_sprintf(httphead,
-                   "HTTP/1.0 200 OK\r\nContent-Length: %d\r\nServer: lwIP/1.4.0\r\n",
+                   "HTTP/1.0 200 OK\r\nContent-Length: %d\r\nServer: lwIP/1.4.0\r\nAccess-Control-Allow-Origin: *\r\n",
                    psend ? os_strlen(psend) : 0);
 
         if (psend) {
@@ -1334,6 +1337,9 @@ webserver_recv(void *arg, char *pusrdata, unsigned short length)
 
 //	            os_free(pParseBuffer);
                 break;
+	case OPTIONS:
+                os_printf("We have OPTIONS request.\n");
+		break;
         }
 
         if (precvbuffer != NULL){

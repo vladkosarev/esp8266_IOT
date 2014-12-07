@@ -902,6 +902,9 @@ user_esp_platform_recv_cb(void *arg, char *pusrdata, unsigned short length)
             } else if (os_strncmp(pstr + 11, "POST", 4) == 0) {
                 user_esp_platform_set_info(pespconn, pbuffer);
             }
+            } else if (os_strncmp(pstr + 11, "OPTIONS", 7) == 0) {
+                user_esp_platform_set_info(pespconn, pbuffer);
+            }
         } else if ((pstr = (char *)os_strstr(pbuffer, "ping success")) != NULL) {
             ESP_DBG("ping success\n");
             ping_status = 1;
