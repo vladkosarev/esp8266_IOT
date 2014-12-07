@@ -10,7 +10,7 @@
 #define SENSOR_DEVICE			1
 
 #if SENSOR_DEVICE
-#define HUMITURE_SUB_DEVICE         1
+#define HUMITURE_SUB_DEVICE         0
 #define FLAMMABLE_GAS_SUB_DEVICE    0
 #define RAIN_SUB_DEVICE         1
 #endif
@@ -25,10 +25,10 @@
 #define ESP_DOMAIN      "iot.espressif.cn"
 #endif
 
-#define SOFTAP_ENCRYPT
+//#define SOFTAP_ENCRYPT
 
 #ifdef SOFTAP_ENCRYPT
-#define PASSWORD	"v*%W>L<@i&Nxe!"
+#define PASSWORD	"esp8266ap"
 #endif
 
 #if SENSOR_DEVICE

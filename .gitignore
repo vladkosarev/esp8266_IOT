@@ -27,3 +27,17 @@
 *.i*86
 *.x86_64
 *.hex
+.output
+/bin/multi_master_key.bin
+/bin/user2.bin
+/bin/user2.dump
+/bin/user2.S
+/bin/user1.bin
+/bin/user1.S
+/bin/user1.dump
+/bin/eagle.app.v6.dump
+/bin/eagle.app.v6.flash.bin
+/bin/eagle.app.v6.irom0text.bin
+/bin/eagle.app.v6.S
+/bin/upgrade
+/bin/_temp_by_dltool

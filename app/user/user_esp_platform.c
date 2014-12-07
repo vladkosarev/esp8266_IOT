@@ -14,6 +14,7 @@
 #include "mem.h"
 #include "osapi.h"
 #include "user_interface.h"
+#include "driver/adc.h"
 
 #include "espconn.h"
 #include "user_esp_platform.h"
@@ -588,7 +589,11 @@ user_esp_platform_sent(struct espconn *pespconn)
 
             os_sprintf(pbuf, UPLOAD_FRAME, count, adc_value / 1024, adc_value * 1000 / 1024, devkey);
         }
-
+#elif RAIN_SUB_DEVICE
+        else {
+            uint32 adc_value = adc_read();
+            os_sprintf(pbuf, UPLOAD_FRAME, count, adc_value / 1024, adc_value * 1000 / 1024, devkey);
+        }
 #endif
 #else
         else {
